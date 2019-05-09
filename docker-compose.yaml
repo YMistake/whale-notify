@@ -1,0 +1,31 @@
+version: '3.6'
+
+services:
+  flask:
+    image: registry.gitlab.com/ankworld/docker_register/whale-notify/flask-webapp:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/code
+    restart: unless-stopped
+    command: bash gunicorn.sh
+
+  nginx:
+    image: registry.gitlab.com/ankworld/docker_register/whale-notify/nginx-proxy:latest
+    build:
+      context: nginx
+      dockerfile: nginx/Dockerfile
+    restart: unless-stopped
+    ports:
+      - mode: host
+        protocol: tcp
+        published: 80
+        target: 80
+      - mode: host
+        protocol: tcp
+        published: 443
+        target: 443
+    depends_on:
+      - flask
+    command: nginx -g 'daemon off;'
