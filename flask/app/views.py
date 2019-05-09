@@ -1,6 +1,6 @@
 from app import app
 import requests
-from flask import render_template_string, redirect
+from flask import render_template_string, redirect, request
 
 @app.route('/')
 @app.route('/index')
@@ -26,7 +26,7 @@ def login():
 
 @app.route('/callback/')
 def callback():
-    code = requests.args.get('code')
+    code = request.args.get('code')
     headers = {"Content-Type": "application/x-www-form-urlencoded"}
     req = requests.post('https://notify-bot.line.me/oauth/token', data={
         "grant_type": "authorization_code",
