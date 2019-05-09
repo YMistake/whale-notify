@@ -1,6 +1,6 @@
 from app import app
 import requests
-from flask import render_template_string, redirect, request, jsonify
+from flask import render_template_string, redirect, request, jsonify, url_for
 import json
 
 @app.route('/')
@@ -36,6 +36,11 @@ def callback():
         "client_id": "2FiajbKaqThu1rRS8CdJYM",
         "client_secret": "vTDF9Wi1tWzhM79PQpSp7pqDUhoK6Bx5jF8vGDOD9l0"
     }, headers=headers).json()
-    return jsonify(res)
+    access_token = res.get("access_token")
+    return redirect(url_for('complete'))
+
+@app.route('/line_connection_complete')
+def complete():
+   return "Complete"
     
 
