@@ -35,6 +35,6 @@ def callback():
         "client_id": "2FiajbKaqThu1rRS8CdJYM",
         "client_secret": "vTDF9Wi1tWzhM79PQpSp7pqDUhoK6Bx5jF8vGDOD9l0"
     }, headers=headers)
-    return req + ' and ' + req.text
+    return req['access_token']
     
 
