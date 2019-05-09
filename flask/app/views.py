@@ -25,12 +25,12 @@ def login():
     return redirect(url)
 
 @app.route('/callback/')
-def callback(params):
-    _code = params.code
+def callback():
+    code = requests.args.get('code')
     headers = {"Content-Type": "application/x-www-form-urlencoded"}
     req = requests.post('https://notify-bot.line.me/oauth/token', data={
         "grant_type": "authorization_code",
-        "code": _code,
+        "code": code,
         "redirect_uri": "https://notify.npworld.info/callback/",
         "client_id": "2FiajbKaqThu1rRS8CdJYM",
         "client_secret": "vTDF9Wi1tWzhM79PQpSp7pqDUhoK6Bx5jF8vGDOD9l0"
