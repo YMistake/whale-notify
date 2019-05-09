@@ -1,6 +1,6 @@
 from app import app
 import requests
-from flask import render_template_string
+from flask import render_template_string, redirect
 
 @app.route('/')
 @app.route('/index')
@@ -9,14 +9,20 @@ def index():
 
 @app.route('/line-login/')
 def login():
-    req = requests.get('https://notify-bot.line.me/oauth/authorize', params = {
-        "response_type": "code",
-        "client_id": "2FiajbKaqThu1rRS8CdJYM",
-        "redirect_uri": "https://notify.npworld.info/callback/",
-        "scope": "notify",
-        "state": "mujxi7dKk"
-    })
-    return render_template_string(req.text)
+    url = "https://notify-bot.line.me/oauth/authorize"
+    url = url + "?response_type=code"
+    url = url + "&client_id=2FiajbKaqThu1rRS8CdJYM"
+    url = url + "&redirect_uri=https://notify.npworld.info/callback/"
+    url = url + "&scope=notify"
+    url = url + "&state=mujxi7dKk"
+    # req = requests.get('https://notify-bot.line.me/oauth/authorize', params = {
+    #     "response_type": "code",
+    #     "client_id": "2FiajbKaqThu1rRS8CdJYM",
+    #     "redirect_uri": "https://notify.npworld.info/callback/",
+    #     "scope": "notify",
+    #     "state": "mujxi7dKk"
+    # })
+    return redirect(url)
 
 @app.route('/callback/')
 def callback(params):
