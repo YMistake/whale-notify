@@ -37,10 +37,23 @@ def callback():
         "client_secret": "vTDF9Wi1tWzhM79PQpSp7pqDUhoK6Bx5jF8vGDOD9l0"
     }, headers=headers).json()
     access_token = res.get("access_token")
-    return redirect(url_for('complete'))
+    # เก็บ access_token ลง db
+    return access_token
+    # return redirect(url_for('complete'))
 
-@app.route('/line_connection_complete')
+@app.route('/line_connection_complete/')
 def complete():
    return "Complete"
     
-
+@app.route('/post_message/', methods=["POST"])
+def post_message():
+    _data = request.json
+    message = _data['message']
+    id = _data['uid']
+    # get access_token from db by uid
+    access_token = ''
+    headers = {"Content-Type": "application/x-www-form-urlencoded", "Authorization": "Bearer " + access_token}
+    res = requests.post('https://notify-api.line.me/api/notify', data={
+        "message": message
+    }, headers=headers).json()
+    return jsonify(res)
