@@ -51,7 +51,7 @@ def post_message():
     message = _data['message']
     id = _data['uid']
     # get access_token from db by uid
-    access_token = ''
+    access_token = 'oYW2nJlmUyyucuI3uSNci9OWyerUa2e9Cf30b4Qn16Y'
     headers = {"Content-Type": "application/x-www-form-urlencoded", "Authorization": "Bearer " + access_token}
     res = requests.post('https://notify-api.line.me/api/notify', data={
         "message": message
